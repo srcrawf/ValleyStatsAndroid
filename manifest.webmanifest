@@ -1,6 +1,6 @@
 {
-  "name": "Skyline & Scoreboard",
-  "short_name": "Skyline",
+  "name": "ValleyStats & Scoreboard",
+  "short_name": "ValleyStats",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0c1016",
