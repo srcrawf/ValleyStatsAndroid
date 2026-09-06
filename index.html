@@ -501,6 +501,14 @@
             }));
             
             const liveGames = results.flatMap(result => result.games).sort((a, b) => a.dateValue - b.dateValue);
+            // ESPN's team-schedule endpoint frequently omits broadcast info; backfill from the curated fallback list when available.
+            const fallbackByKey = new Map(fallbackGames.map(game => [`${game.sport}:${game.teamKey}:${game.calendarDate}`, game]));
+            liveGames.forEach(game => {
+                if (game.broadcast === 'TBD') {
+                    const match = fallbackByKey.get(`${game.sport}:${game.teamKey}:${game.calendarDate}`);
+                    if (match?.broadcast && match.broadcast !== 'TBD') game.broadcast = match.broadcast;
+                }
+            });
             const liveKeys = new Set(liveGames.map(game => `${game.sport}:${game.teamKey}`));
             const missing = results.filter(result => !liveKeys.has(`${result.feed.sport}:${result.feed.teamKey}`));
             const combinedGames = [...liveGames, ...missing.flatMap(result => fallbackGames.filter(game => game.sport === result.feed.sport && game.teamKey === result.feed.teamKey))];
