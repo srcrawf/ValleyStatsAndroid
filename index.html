@@ -384,7 +384,7 @@
 
         function renderTodayGames() {
             const todayKey = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-            document.querySelector('#today-games-date').textContent = `${new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date())} &middot; local`;
+            document.querySelector('#today-games-date').textContent = `${new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date())} \u00b7 ${getLocalTzName()}`;
             const todayGames = games.filter(game => gameCalendarKey(game) === todayKey);
             document.querySelector('#today-games-list').innerHTML = todayGames.length ? todayGames.map(game => {
                 const isFinished = game.state === 'post' || game.state === 'in';
