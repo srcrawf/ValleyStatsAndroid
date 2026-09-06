@@ -174,7 +174,7 @@
     <div class="shell">
         <div id="alert-banner" class="top-banner alert-banner" hidden role="alert"></div>
         <div id="live-banner" class="top-banner live-banner" hidden aria-live="polite"></div>
-        <header><div><h1>ValleyStats <span style="color:var(--coral)">& Scoreboard</span></h1></div><div class="date-stamp"><div><span id="live-indicator" class="live-dot"></span><span id="clock">--:--</span> MST</div><div id="today-label">Loading date...</div><div id="next-game-countdown" class="next-game-countdown">Next game: checking schedule...</div></div></header>
+        <header><div><h1>ValleyStats <span style="color:var(--coral)">& Scoreboard</span></h1></div><div class="date-stamp"><div><span id="live-indicator" class="live-dot"></span><span id="clock">--:--</span> <span id="tz-name"></span></div><div id="today-label">Loading date...</div><div id="next-game-countdown" class="next-game-countdown">Next game: checking schedule...</div></div></header>
         <main>
             <section aria-labelledby="weather-heading"><p class="section-label" id="weather-heading">Weather / now</p><div class="weather-and-today"><div class="weather-grid">
                 <article class="panel weather-card" data-weather="parker"><div class="location-row"><div><div class="location">Parker <span class="weather-status" data-weather-status>Live</span><span class="last-updated" data-weather-updated></span></div><div class="state">COLORADO / 80138</div></div><div class="sun-mark"><span class="material-symbols-rounded weather-icon">clear_day</span></div></div><div class="condition">Clear skies Â· feels like 49Â°</div><div class="temperature">52<sup>Â°F</sup></div><div class="weather-meta"><span>HIGH <strong>58Â°</strong></span><span>LOW <strong>38Â°</strong></span><span>WIND <strong>6 mph</strong><span class="material-symbols-rounded wind-arrow" data-wind-arrow aria-hidden="true">north</span></span></div><div class="hourly-strip" data-hourly aria-label="Next 12 hours"></div><div class="sun-times" data-suntimes><span>Sunrise --</span><span>Sunset --</span></div></article>
@@ -182,11 +182,11 @@
             </div><aside class="panel today-games" aria-labelledby="today-games-title"><h2 class="today-games-title" id="today-games-title">Todayâ€™s games</h2><div class="today-games-date" id="today-games-date">MST Â· loading</div><div id="today-games-list"><p class="today-empty">Checking the schedule...</p></div></aside></div><div class="panel forecast-panel"><div class="card-top"><p class="section-label" style="margin:0">10-day outlook</p><div class="forecast-tabs" role="tablist"><button class="active" data-location="parker" role="tab">Parker</button><button data-location="tempe" role="tab">Tempe</button></div></div><div id="forecast-list" class="forecast-list" aria-live="polite"></div></div></section>
             <section aria-labelledby="sports-heading"><p class="section-label" id="sports-heading">Schedules / upcoming</p><div class="panel agenda"><div class="agenda-head"><div><h2 class="agenda-title">On the calendar</h2><div class="agenda-subtitle">Football & basketball Â· 2026â€“27 season</div></div><div class="agenda-tools"><span id="source-status" class="source-status">Loading games...</span><span id="sports-updated" class="last-updated"></span><button id="refresh-sports" class="refresh-button" type="button">Refresh</button></div></div><div class="filter" role="group" aria-label="Filter games"><button class="active" data-filter="all">All games</button><button data-filter="football">Football</button><button data-filter="basketball">Basketball</button></div><div class="calendar-heading"><h3 id="calendar-month-title" class="month-title" style="margin:0">Loading month...</h3><div class="calendar-nav" aria-label="Change visible month"><button id="previous-month" type="button" aria-label="Previous month">&#8592;</button><button id="next-month" type="button" aria-label="Next month">&#8594;</button></div></div><div id="selected-day-games" class="selected-day-games" hidden aria-live="polite"></div><div id="schedule" class="schedule"></div></div></section>
         </main>
-        <footer>Weather is live Â· schedules show live ESPN data where available, with fallback rows for unpublished feeds Â· all game times shown in MST</footer>
+        <footer>Weather is live Â· schedules show live ESPN data where available, with fallback rows for unpublished feeds Â· all game times shown in local time</footer>
     </div>
     <script>
         const locations = { parker:{latitude:39.5186,longitude:-104.7614}, tempe:{latitude:33.4255,longitude:-111.94} };
-        const forecasts = { parker:[{d:'Today',i:'¤',h:58,l:38,p:'0%'},{d:'Thu',i:'?',h:61,l:40,p:'10%'},{d:'Fri',i:'¤',h:63,l:42,p:'0%'},{d:'Sat',i:'?',h:59,l:41,p:'20%'},{d:'Sun',i:'??',h:57,l:39,p:'50%'},{d:'Mon',i:'¤',h:60,l:40,p:'0%'},{d:'Tue',i:'?',h:62,l:43,p:'10%'},{d:'Wed',i:'¤',h:64,l:45,p:'0%'},{d:'Thu',i:'?',h:60,l:42,p:'20%'},{d:'Fri',i:'¤',h:66,l:46,p:'0%'}], tempe:[{d:'Today',i:'¤',h:98,l:75,p:'0%'},{d:'Thu',i:'¤',h:99,l:76,p:'0%'},{d:'Fri',i:'¤',h:101,l:77,p:'0%'},{d:'Sat',i:'?',h:99,l:76,p:'5%'},{d:'Sun',i:'¤',h:100,l:75,p:'0%'},{d:'Mon',i:'¤',h:102,l:78,p:'0%'},{d:'Tue',i:'?',h:99,l:76,p:'5%'},{d:'Wed',i:'¤',h:101,l:77,p:'0%'},{d:'Thu',i:'¤',h:100,l:76,p:'0%'},{d:'Fri',i:'¤',h:102,l:78,p:'0%'}] };
+        const forecasts = { parker:[{d:'Today',i:'',h:58,l:38,p:'0%'},{d:'Thu',i:'?',h:61,l:40,p:'10%'},{d:'Fri',i:'',h:63,l:42,p:'0%'},{d:'Sat',i:'?',h:59,l:41,p:'20%'},{d:'Sun',i:'??',h:57,l:39,p:'50%'},{d:'Mon',i:'',h:60,l:40,p:'0%'},{d:'Tue',i:'?',h:62,l:43,p:'10%'},{d:'Wed',i:'',h:64,l:45,p:'0%'},{d:'Thu',i:'?',h:60,l:42,p:'20%'},{d:'Fri',i:'',h:66,l:46,p:'0%'}], tempe:[{d:'Today',i:'',h:98,l:75,p:'0%'},{d:'Thu',i:'',h:99,l:76,p:'0%'},{d:'Fri',i:'',h:101,l:77,p:'0%'},{d:'Sat',i:'?',h:99,l:76,p:'5%'},{d:'Sun',i:'',h:100,l:75,p:'0%'},{d:'Mon',i:'',h:102,l:78,p:'0%'},{d:'Tue',i:'?',h:99,l:76,p:'5%'},{d:'Wed',i:'',h:101,l:77,p:'0%'},{d:'Thu',i:'',h:100,l:76,p:'0%'},{d:'Fri',i:'',h:102,l:78,p:'0%'}] };
         
         const games = [];
         const sportsFeeds = [
@@ -229,12 +229,12 @@
         
         games.splice(0, games.length, ...fallbackGames);
 
-        function weatherVisual(value) { if (value.startsWith('<')) return value; const icon={clear_day:'clear_day',partly_cloudy_day:'partly_cloudy_day',cloud:'cloud',rainy:'rainy',thunderstorm:'thunderstorm',snowing:'snowing',foggy:'foggy', '¤':'clear_day','?':'partly_cloudy_day','?':'cloud','??':'rainy'}[value] || 'cloud'; const label={clear_day:'Clear',partly_cloudy_day:'Partly cloudy',cloud:'Cloudy',rainy:'Rain',thunderstorm:'Thunderstorm',snowing:'Snow',foggy:'Fog'}[icon] || 'Cloudy'; return `<span class="material-symbols-rounded weather-icon" aria-label="${label}">${icon}</span>`; }
-        function renderForecast(location) { document.querySelector('#forecast-list').innerHTML = forecasts[location].map((item,index) => `<div class="forecast-day ${index===0?'today':''}"><time>${item.d}</time><span class="weather-symbol">${weatherVisual(item.i)}</span><div class="forecast-temp">${item.h}° <span>${item.l}°</span></div><div class="precip">${item.p} rain</div></div>`).join(''); }
+        function weatherVisual(value) { if (value.startsWith('<')) return value; const icon={clear_day:'clear_day',partly_cloudy_day:'partly_cloudy_day',cloud:'cloud',rainy:'rainy',thunderstorm:'thunderstorm',snowing:'snowing',foggy:'foggy', '':'clear_day','?':'partly_cloudy_day','?':'cloud','??':'rainy'}[value] || 'cloud'; const label={clear_day:'Clear',partly_cloudy_day:'Partly cloudy',cloud:'Cloudy',rainy:'Rain',thunderstorm:'Thunderstorm',snowing:'Snow',foggy:'Fog'}[icon] || 'Cloudy'; return `<span class="material-symbols-rounded weather-icon" aria-label="${label}">${icon}</span>`; }
+        function renderForecast(location) { document.querySelector('#forecast-list').innerHTML = forecasts[location].map((item,index) => `<div class="forecast-day ${index===0?'today':''}"><time>${item.d}</time><span class="weather-symbol">${weatherVisual(item.i)}</span><div class="forecast-temp">${item.h}&deg; <span>${item.l}&deg;</span></div><div class="precip">${item.p} rain</div></div>`).join(''); }
         
         let selectedDayKey = null;
         function gameDate(game) { return game.dateValue || new Date(`${game.date}T12:00:00Z`); }
-        function calendarParts(date) { const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Phoenix',year:'numeric',month:'numeric',day:'numeric'}).formatToParts(date); return Object.fromEntries(parts.filter(part=>part.type!=='literal').map(part=>[part.type,Number(part.value)])); }
+        function calendarParts(date) { const parts=new Intl.DateTimeFormat('en-US',{year:'numeric',month:'numeric',day:'numeric'}).formatToParts(date); return Object.fromEntries(parts.filter(part=>part.type!=='literal').map(part=>[part.type,Number(part.value)])); }
         function calendarDateKey(year, month, day) { return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`; }
         
         function gameCalendarKey(game) {
@@ -248,10 +248,10 @@
             if (game.state === 'post' || game.state === 'in') {
                 const statusLabel = game.status || (game.state === 'post' ? 'Final' : 'Live');
                 if (game.scoreText) {
-                    return `${statusLabel} · ${game.scoreText}`;
+                    return `${statusLabel} &middot; ${game.scoreText}`;
                 }
                 if (game.score && game.score.length >= 2) {
-                    return `${statusLabel} · ${game.score[0].name} ${game.score[0].score} - ${game.score[1].name} ${game.score[1].score}`;
+                    return `${statusLabel} &middot; ${game.score[0].name} ${game.score[0].score} - ${game.score[1].name} ${game.score[1].score}`;
                 }
                 return statusLabel;
             }
@@ -350,7 +350,7 @@
                 return;
             }
             const monthKeys = sections.map(section => section.querySelector('.month-title').textContent);
-            const currentMonthKey = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Phoenix', month: 'long', year: 'numeric' }).format(new Date()).toUpperCase();
+            const currentMonthKey = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date()).toUpperCase();
             if (!visibleCalendarMonth || !monthKeys.includes(visibleCalendarMonth)) visibleCalendarMonth = monthKeys.includes(currentMonthKey) ? currentMonthKey : monthKeys[0];
             sections.forEach(section => section.classList.toggle('visible-month', section.querySelector('.month-title').textContent === visibleCalendarMonth));
             document.querySelector('#calendar-month-title').textContent = visibleCalendarMonth;
@@ -381,18 +381,19 @@
         schedule.addEventListener('touchend', event => { if (!touchStartX || !event.target.closest('.month-grid')) return; const touch = event.changedTouches[0]; const deltaX = touch.clientX - touchStartX; const deltaY = touch.clientY - touchStartY; touchStartX = 0; if (Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY)) { moveCalendarMonth(deltaX < 0 ? 1 : -1); } }, { passive: true });
 
         function renderTodayGames() {
-            const todayKey = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Phoenix', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-            document.querySelector('#today-games-date').textContent = `${new Intl.DateTimeFormat('en-US', { timeZone: 'America/Phoenix', weekday: 'short', month: 'short', day: 'numeric' }).format(new Date())} · MST`;
+            const todayKey = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+            document.querySelector('#today-games-date').textContent = `${new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(new Date())} &middot; local`;
             const todayGames = games.filter(game => gameCalendarKey(game) === todayKey);
             document.querySelector('#today-games-list').innerHTML = todayGames.length ? todayGames.map(game => {
                 const isFinished = game.state === 'post' || game.state === 'in';
-                const gameInfo = isFinished ? gameSummary(game) : `${game.opponent} · ${game.time === 'TBD' ? 'TBD' : game.time + ' MST'}`;
+                const gameInfo = isFinished ? gameSummary(game) : `${game.opponent} &middot; ${game.time === 'TBD' ? 'TBD' : game.time + ' MST'}`;
                 return `<article class="today-game"><div class="matchup-logos"><img class="team-logo" src="${game.logo || teamLogos[game.teamKey]}" alt="${game.team} logo"><span class="logo-divider">${game.opponent.startsWith('@') ? 'at' : 'vs'}</span>${game.opponentLogo ? `<img class="team-logo" src="${game.opponentLogo}" alt="${game.opponent} logo">` : ''}</div><strong><span class="sport-mark">${game.sport === 'football' ? '??' : '??'}</span>${game.team}</strong><span>${gameInfo}</span>${game.broadcast ? `<span class="broadcast-tag">?? ${game.broadcast}</span>` : ''}${game.record ? `<span class="team-record">${game.record}</span>` : ''}</article>`;
             }).join('') : '<p class="today-empty">No games scheduled today.</p>';
         }
 
+        function getLocalTzName() { try { return new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(new Date()).find(p => p.type === 'timeZoneName')?.value || ''; } catch(e) { return ''; } }
         function mountainParts(date) {
-            const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Phoenix', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).formatToParts(date);
+            const parts = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true }).formatToParts(date);
             return Object.fromEntries(parts.filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
         }
 
@@ -504,7 +505,7 @@
             
             if (liveGames.length) {
                 games.splice(0, games.length, ...combinedGames);
-                status.textContent = missing.length ? `Live · ESPN + fallback` : 'Live · ESPN';
+                status.textContent = missing.length ? `Live &middot; ESPN + fallback` : 'Live &middot; ESPN';
             } else {
                 games.splice(0, games.length, ...fallbackGames);
                 status.textContent = 'Sample schedule';
@@ -525,10 +526,10 @@
             const current = data.current;
             const day = data.daily;
             const hourly = data.hourly;
-            card.querySelector('.condition').textContent = `${weatherDescriptions[current.weather_code] || 'Mixed conditions'} · feels like ${Math.round(current.apparent_temperature)}°`;
-            card.querySelector('.temperature').innerHTML = `${Math.round(current.temperature_2m)}<sup>°F</sup>`;
-            card.querySelectorAll('.weather-meta strong')[0].textContent = `${Math.round(day.temperature_2m_max[0])}°`;
-            card.querySelectorAll('.weather-meta strong')[1].textContent = `${Math.round(day.temperature_2m_min[0])}°`;
+            card.querySelector('.condition').textContent = `${weatherDescriptions[current.weather_code] || 'Mixed conditions'}  feels like ${Math.round(current.apparent_temperature)}&deg;&deg;`;
+            card.querySelector('.temperature').innerHTML = `${Math.round(current.temperature_2m)}<sup>&deg;F</sup>`;
+            card.querySelectorAll('.weather-meta strong')[0].textContent = `${Math.round(day.temperature_2m_max[0])}&deg;&deg;`;
+            card.querySelectorAll('.weather-meta strong')[1].textContent = `${Math.round(day.temperature_2m_min[0])}&deg;&deg;`;
             card.querySelectorAll('.weather-meta strong')[2].textContent = `${Math.round(current.wind_speed_10m)} mph`;
             const windArrow = card.querySelector('[data-wind-arrow]');
             if (windArrow && current.wind_direction_10m !== undefined) windArrow.style.transform = `rotate(${current.wind_direction_10m}deg)`;
@@ -554,7 +555,7 @@
                 const time = new Date(hourly.time[index]);
                 const weatherCode = hourly.weather_code?.[index] ?? 0;
                 const precipitation = hourly.precipitation_probability?.[index] ?? 0;
-                return `<div class="hour-col ${position === 0 ? 'current' : ''}"><time>${position === 0 ? 'Now' : time.toLocaleTimeString([], { hour: 'numeric' })}</time>${weatherIcon(weatherCode)}<strong>${Math.round(hourly.temperature_2m[index])}°</strong><small>${precipitation}% rain</small></div>`;
+                return `<div class="hour-col ${position === 0 ? 'current' : ''}"><time>${position === 0 ? 'Now' : time.toLocaleTimeString([], { hour: 'numeric' })}</time>${weatherIcon(weatherCode)}<strong>${Math.round(hourly.temperature_2m[index])}&deg;</strong><small>${precipitation}% rain</small></div>`;
             }).join('')}</div>`;
         }
 
@@ -598,7 +599,7 @@
                 const activeAlerts = results.flat();
                 if (!activeAlerts.length) { banner.hidden = true; banner.innerHTML = ''; return; }
                 banner.hidden = false;
-                banner.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">warning</span><ul>${activeAlerts.map(alert => `<li><strong>${alert.event}</strong> — ${alert.place === 'parker' ? 'Parker, CO' : 'Tempe, AZ'}: ${alert.headline || (alert.description || '').slice(0, 160)}</li>`).join('')}</ul>`;
+                banner.innerHTML = `<span class="material-symbols-rounded" aria-hidden="true">warning</span><ul>${activeAlerts.map(alert => `<li><strong>${alert.event}</strong> &middot; ${alert.place === 'parker' ? 'Parker, CO' : 'Tempe, AZ'}: ${alert.headline || (alert.description || '').slice(0, 160)}</li>`).join('')}</ul>`;
             } catch (error) {
                 console.warn('Alerts unavailable', error);
                 banner.hidden = true;
@@ -610,7 +611,7 @@
             const liveNow = games.filter(game => game.state === 'in');
             if (!liveNow.length) { banner.hidden = true; banner.innerHTML = ''; return; }
             banner.hidden = false;
-            banner.innerHTML = `<span class="live-pulse" aria-hidden="true"></span><ul>${liveNow.map(game => `<li><strong>${game.team}</strong> ${game.opponent} · ${game.status || 'Live now'}</li>`).join('')}</ul>`;
+            banner.innerHTML = `<span class="live-pulse" aria-hidden="true"></span><ul>${liveNow.map(game => `<li><strong>${game.team}</strong> ${game.opponent} &middot; ${game.status || 'Live now'}</li>`).join('')}</ul>`;
         }
 
         function renderCountdown() {
@@ -644,8 +645,8 @@
 
         function updateClock() {
             const now = new Date();
-            document.querySelector('#clock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Phoenix' });
-            document.querySelector('#today-label').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Phoenix' });
+            document.querySelector('#clock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.querySelector('#today-label').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
         }
 
         renderForecast('parker');
