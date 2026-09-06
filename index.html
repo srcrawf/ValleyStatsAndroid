@@ -186,7 +186,9 @@
     </div>
     <script>
         const locations = { parker:{latitude:39.5186,longitude:-104.7614}, tempe:{latitude:33.4255,longitude:-111.94} };
-        const forecasts = { parker:[{d:'Today',i:'',h:58,l:38,p:'0%'},{d:'Thu',i:'?',h:61,l:40,p:'10%'},{d:'Fri',i:'',h:63,l:42,p:'0%'},{d:'Sat',i:'?',h:59,l:41,p:'20%'},{d:'Sun',i:'??',h:57,l:39,p:'50%'},{d:'Mon',i:'',h:60,l:40,p:'0%'},{d:'Tue',i:'?',h:62,l:43,p:'10%'},{d:'Wed',i:'',h:64,l:45,p:'0%'},{d:'Thu',i:'?',h:60,l:42,p:'20%'},{d:'Fri',i:'',h:66,l:46,p:'0%'}], tempe:[{d:'Today',i:'',h:98,l:75,p:'0%'},{d:'Thu',i:'',h:99,l:76,p:'0%'},{d:'Fri',i:'',h:101,l:77,p:'0%'},{d:'Sat',i:'?',h:99,l:76,p:'5%'},{d:'Sun',i:'',h:100,l:75,p:'0%'},{d:'Mon',i:'',h:102,l:78,p:'0%'},{d:'Tue',i:'?',h:99,l:76,p:'5%'},{d:'Wed',i:'',h:101,l:77,p:'0%'},{d:'Thu',i:'',h:100,l:76,p:'0%'},{d:'Fri',i:'',h:102,l:78,p:'0%'}] };
+        const fallbackDayLabel = (offset) => { if (offset === 0) return 'Today'; const dt = new Date(); dt.setDate(dt.getDate() + offset); return dt.toLocaleDateString([], {weekday:'short'}); };
+        const forecastTemplates = { parker:[{i:'',h:58,l:38,p:'0%'},{i:'?',h:61,l:40,p:'10%'},{i:'',h:63,l:42,p:'0%'},{i:'?',h:59,l:41,p:'20%'},{i:'??',h:57,l:39,p:'50%'},{i:'',h:60,l:40,p:'0%'},{i:'?',h:62,l:43,p:'10%'},{i:'',h:64,l:45,p:'0%'},{i:'?',h:60,l:42,p:'20%'},{i:'',h:66,l:46,p:'0%'}], tempe:[{i:'',h:98,l:75,p:'0%'},{i:'',h:99,l:76,p:'0%'},{i:'',h:101,l:77,p:'0%'},{i:'?',h:99,l:76,p:'5%'},{i:'',h:100,l:75,p:'0%'},{i:'',h:102,l:78,p:'0%'},{i:'?',h:99,l:76,p:'5%'},{i:'',h:101,l:77,p:'0%'},{i:'',h:100,l:76,p:'0%'},{i:'',h:102,l:78,p:'0%'}] };
+        const forecasts = Object.fromEntries(Object.entries(forecastTemplates).map(([loc, days]) => [loc, days.map((day, index) => ({...day, d: fallbackDayLabel(index)}))]));
         
         const games = [];
         const sportsFeeds = [
@@ -526,10 +528,10 @@
             const current = data.current;
             const day = data.daily;
             const hourly = data.hourly;
-            card.querySelector('.condition').textContent = `${weatherDescriptions[current.weather_code] || 'Mixed conditions'}  feels like ${Math.round(current.apparent_temperature)}&deg;&deg;`;
+            card.querySelector('.condition').innerHTML = `${weatherDescriptions[current.weather_code] || 'Mixed conditions'} &middot; feels like ${Math.round(current.apparent_temperature)}&deg;`;
             card.querySelector('.temperature').innerHTML = `${Math.round(current.temperature_2m)}<sup>&deg;F</sup>`;
-            card.querySelectorAll('.weather-meta strong')[0].textContent = `${Math.round(day.temperature_2m_max[0])}&deg;&deg;`;
-            card.querySelectorAll('.weather-meta strong')[1].textContent = `${Math.round(day.temperature_2m_min[0])}&deg;&deg;`;
+            card.querySelectorAll('.weather-meta strong')[0].innerHTML = `${Math.round(day.temperature_2m_max[0])}&deg;`;
+            card.querySelectorAll('.weather-meta strong')[1].innerHTML = `${Math.round(day.temperature_2m_min[0])}&deg;`;
             card.querySelectorAll('.weather-meta strong')[2].textContent = `${Math.round(current.wind_speed_10m)} mph`;
             const windArrow = card.querySelector('[data-wind-arrow]');
             if (windArrow && current.wind_direction_10m !== undefined) windArrow.style.transform = `rotate(${current.wind_direction_10m}deg)`;
