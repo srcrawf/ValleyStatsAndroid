@@ -550,6 +550,16 @@
                 sunTimes.innerHTML = `<span>Sunrise ${fmt(day.sunrise[0])}</span><span>Sunset ${fmt(day.sunset[0])}</span>`;
             }
             renderHourlyRail(card, hourly);
+            // The 10-day outlook previously never received live data and always showed static placeholder numbers.
+            if (day?.time?.length) {
+                forecasts[location] = day.time.map((date, index) => ({
+                    d: index === 0 ? 'Today' : new Date(`${date}T12:00:00`).toLocaleDateString([], { weekday: 'short' }),
+                    i: weatherIcon(day.weather_code[index]),
+                    h: Math.round(day.temperature_2m_max[index]),
+                    l: Math.round(day.temperature_2m_min[index]),
+                    p: `${day.precipitation_probability_max?.[index] ?? 0}%`
+                }));
+            }
         }
 
         function renderHourlyRail(card, hourly) {
