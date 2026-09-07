@@ -182,10 +182,10 @@
             </div><aside class="panel today-games" aria-labelledby="today-games-title"><h2 class="today-games-title" id="today-games-title">Today’s games</h2><div class="today-games-date" id="today-games-date">MST · loading</div><div id="today-games-list"><p class="today-empty">Checking the schedule...</p></div></aside></div><div class="panel forecast-panel"><div class="card-top"><p class="section-label" style="margin:0">10-day outlook</p><div class="forecast-tabs" role="tablist"><button class="active" data-location="parker" role="tab">Parker</button><button data-location="tempe" role="tab">Tempe</button></div></div><div id="forecast-list" class="forecast-list" aria-live="polite"></div></div></section>
             <section aria-labelledby="sports-heading"><p class="section-label" id="sports-heading">Schedules / upcoming</p><div class="panel agenda"><div class="agenda-head"><div><h2 class="agenda-title">On the calendar</h2><div class="agenda-subtitle">Football & basketball · 2026–27 season</div></div><div class="agenda-tools"><span id="source-status" class="source-status">Loading games...</span><span id="sports-updated" class="last-updated"></span><button id="refresh-sports" class="refresh-button" type="button">Refresh</button></div></div><div class="filter" role="group" aria-label="Filter games"><button class="active" data-filter="all">All games</button><button data-filter="football">Football</button><button data-filter="basketball">Basketball</button></div><div class="calendar-heading"><h3 id="calendar-month-title" class="month-title" style="margin:0">Loading month...</h3><div class="calendar-nav" aria-label="Change visible month"><button id="previous-month" type="button" aria-label="Previous month">&#8592;</button><button id="next-month" type="button" aria-label="Next month">&#8594;</button></div></div><div id="selected-day-games" class="selected-day-games" hidden aria-live="polite"></div><div id="schedule" class="schedule"></div></div></section>
         </main>
-        <footer>Weather is live · schedules show live ESPN data where available, with fallback rows for unpublished feeds · all game times shown in Arizona time (MST)</footer>
+        <footer>Weather is live · schedules show live ESPN data where available, with fallback rows for unpublished feeds · all game times shown in Mountain Time</footer>
     </div>
     <script>
-        const GAME_TIME_ZONE = 'America/Phoenix';
+        const GAME_TIME_ZONE = 'America/Denver';
         const locations = { parker:{latitude:39.5186,longitude:-104.7614}, tempe:{latitude:33.4255,longitude:-111.94} };
         const fallbackDayLabel = (offset) => { if (offset === 0) return 'Today'; const dt = new Date(); dt.setDate(dt.getDate() + offset); return dt.toLocaleDateString([], {weekday:'short'}); };
         const rawForecastTemplates = { parker:[{i:'sun',h:58,l:38,p:'0%'},{i:'partly',h:61,l:40,p:'10%'},{i:'sun',h:63,l:42,p:'0%'},{i:'cloud',h:59,l:41,p:'20%'},{i:'rain',h:57,l:39,p:'50%'},{i:'sun',h:60,l:40,p:'0%'},{i:'partly',h:62,l:43,p:'10%'},{i:'sun',h:64,l:45,p:'0%'},{i:'cloud',h:60,l:42,p:'20%'},{i:'sun',h:66,l:46,p:'0%'}], tempe:[{i:'sun',h:98,l:75,p:'0%'},{i:'sun',h:99,l:76,p:'0%'},{i:'sun',h:101,l:77,p:'0%'},{i:'partly',h:99,l:76,p:'5%'},{i:'sun',h:100,l:75,p:'0%'},{i:'sun',h:102,l:78,p:'0%'},{i:'partly',h:99,l:76,p:'5%'},{i:'sun',h:101,l:77,p:'0%'},{i:'sun',h:100,l:76,p:'0%'},{i:'sun',h:102,l:78,p:'0%'}] };
@@ -207,17 +207,17 @@
         function safeImageUrl(url) { try { const parsed = new URL(url, window.location.href); return (parsed.protocol === 'https:' || parsed.protocol === 'http:') ? parsed.href : ''; } catch (e) { return ''; } }
 
         const fallbackGames = [
-            {sport:'football',team:'Arizona State',opponent:'vs Morgan State',date:'2026-09-05',month:'SEP',day:'5',time:'7:00 PM',teamKey:'asu',state:'post',status:'Final',scoreText:'ASU 48, MORG 7',broadcast:'FS1'},
-            {sport:'football',team:'Arizona Wildcats',opponent:'vs Northern Arizona',date:'2026-09-05',month:'SEP',day:'5',time:'6:30 PM',teamKey:'ua',state:'post',status:'Final',scoreText:'UA 61, NAU 39',broadcast:'ESPN+'},
-            {sport:'football',team:'Arizona Cardinals',opponent:'@ Buffalo Bills',date:'2026-09-06',month:'SEP',day:'6',time:'10:00 AM',teamKey:'cardinals',state:'post',status:'Final',scoreText:'CAR 28, BUF 34',broadcast:'CBS'},
-            {sport:'football',team:'Arizona State',opponent:'@ Texas A&M',date:'2026-09-12',month:'SEP',day:'12',time:'9:00 AM',teamKey:'asu',broadcast:'ABC'},
-            {sport:'football',team:'Arizona Wildcats',opponent:'@ BYU',date:'2026-09-12',month:'SEP',day:'12',time:'12:30 PM',teamKey:'ua',broadcast:'FOX'},
-            {sport:'football',team:'Arizona Cardinals',opponent:'vs Seattle Seahawks',date:'2026-09-13',month:'SEP',day:'13',time:'1:05 PM',teamKey:'cardinals',broadcast:'FOX'},
-            {sport:'football',team:'Arizona State',opponent:'@ Kansas',date:'2026-09-19',month:'SEP',day:'19',time:'9:00 AM',teamKey:'asu',broadcast:'FS1'},
-            {sport:'football',team:'Arizona Wildcats',opponent:'vs Northern Illinois',date:'2026-09-19',month:'SEP',day:'19',time:'7:30 PM',teamKey:'ua',broadcast:'ESPN2'},
-            {sport:'football',team:'Arizona Wildcats',opponent:'@ Washington State',date:'2026-09-26',month:'SEP',day:'26',time:'4:30 PM',teamKey:'ua',broadcast:'FOX'},
+            {sport:'football',team:'Arizona State',opponent:'vs Morgan State',date:'2026-09-05',month:'SEP',day:'5',time:'8:00 PM',teamKey:'asu',state:'post',status:'Final',scoreText:'ASU 48, MORG 7',broadcast:'FS1'},
+            {sport:'football',team:'Arizona Wildcats',opponent:'vs Northern Arizona',date:'2026-09-05',month:'SEP',day:'5',time:'7:30 PM',teamKey:'ua',state:'post',status:'Final',scoreText:'UA 61, NAU 39',broadcast:'ESPN+'},
+            {sport:'football',team:'Arizona Cardinals',opponent:'@ Buffalo Bills',date:'2026-09-06',month:'SEP',day:'6',time:'11:00 AM',teamKey:'cardinals',state:'post',status:'Final',scoreText:'CAR 28, BUF 34',broadcast:'CBS'},
+            {sport:'football',team:'Arizona State',opponent:'@ Texas A&M',date:'2026-09-12',month:'SEP',day:'12',time:'10:00 AM',teamKey:'asu',broadcast:'ABC'},
+            {sport:'football',team:'Arizona Wildcats',opponent:'@ BYU',date:'2026-09-12',month:'SEP',day:'12',time:'1:30 PM',teamKey:'ua',broadcast:'FOX'},
+            {sport:'football',team:'Arizona Cardinals',opponent:'vs Seattle Seahawks',date:'2026-09-13',month:'SEP',day:'13',time:'2:05 PM',teamKey:'cardinals',broadcast:'FOX'},
+            {sport:'football',team:'Arizona State',opponent:'@ Kansas',date:'2026-09-19',month:'SEP',day:'19',time:'10:00 AM',teamKey:'asu',broadcast:'FS1'},
+            {sport:'football',team:'Arizona Wildcats',opponent:'vs Northern Illinois',date:'2026-09-19',month:'SEP',day:'19',time:'8:30 PM',teamKey:'ua',broadcast:'ESPN2'},
+            {sport:'football',team:'Arizona Wildcats',opponent:'@ Washington State',date:'2026-09-26',month:'SEP',day:'26',time:'5:30 PM',teamKey:'ua',broadcast:'FOX'},
             {sport:'football',team:'Arizona State',opponent:'vs Baylor',date:'2026-10-03',month:'OCT',day:'3',time:'TBD',teamKey:'asu',broadcast:'TBD'},
-            {sport:'basketball',team:'Phoenix Suns',opponent:'vs Denver Nuggets',date:'2026-10-22',month:'OCT',day:'22',time:'7:00 PM',teamKey:'suns',broadcast:'TNT'},
+            {sport:'basketball',team:'Phoenix Suns',opponent:'vs Denver Nuggets',date:'2026-10-22',month:'OCT',day:'22',time:'8:00 PM',teamKey:'suns',broadcast:'TNT'},
             {sport:'basketball',team:'Arizona State',opponent:'vs Gonzaga',date:'2026-11-10',month:'NOV',day:'10',time:'7:00 PM',teamKey:'asu',broadcast:'ESPN2'},
             {sport:'basketball',team:'Arizona Wildcats',opponent:'@ Duke',date:'2026-11-18',month:'NOV',day:'18',time:'5:30 PM',teamKey:'ua',broadcast:'ESPN'}
         ];
